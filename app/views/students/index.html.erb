@@ -1,0 +1,59 @@
+<div class="container_main">
+
+  <%= form_with url: user_students_path(current_user), method: :get, local: true, class: "filter-form" do |f| %>
+    <div class="filter-field">
+      <%= f.text_field :query, value: params[:query], placeholder: "Search" %>
+      <button type="submit" class="filter-button">
+        <%= inline_svg('icons/search.svg', class: 'svg-icon') %> 
+      </button>
+    </div>
+  <% end %>
+
+  <div class="container">
+    <% if @students.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Mark</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @students.each do |student| %>
+            <tr>
+              <td>
+                <div class="profile-initials"><%= student.name[0].upcase %></div>
+                <%= student.name%>
+              </td>
+              <td><%= student.subject.capitalize %></td>
+              <td><%= student.marks %></td>
+              <td class="action-buttons">
+                <%= link_to '#', onclick: "toggleActions('actions-#{student.id}'); event.stopPropagation();", class: 'toggle-button' do %>
+                  <%= inline_svg('icons/downcircle.svg', class: 'svg-icon-home') %>
+                <% end %>
+                <div id="actions-<%= student.id %>" class="action-popup">
+                  <%= link_to 'Edit', edit_user_student_path(current_user, student) %>
+                  <%= button_to 'Delete', user_student_path(current_user, student), method: :delete, data: { confirm: 'Are you sure?' } %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No students found.</p>
+    <% end %>
+  </div>
+  <div>
+    <button onclick="openModal()" class="add-button">Add</button>
+  </div>
+  <%= paginate @students %>
+</div>
+
+<div id="addStudentModal" class="modal">
+  <div class="modal-content">
+    <%= render 'form' if @student %>
+  </div>
+</div>
