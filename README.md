@@ -1,24 +1,25 @@
-# README
+# teacherapplication
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This README provides the necessary steps to get the application up and running.
 
-Things you may want to cover:
+## Prerequisites
 
-* Ruby version
+* **Ruby version**: `3.3.4`  
+* **Rails version**: '7.2.2'
 
-* System dependencies
+* **System dependencies**:
+  - Rails
+  - Node.js and Yarn for frontend assets (optional based on project setup)
+  - SQLite3 for development database (other databases may be required in production)
 
 * Configuration
+   git clone https://github.com/Reetesh74/teacherapplication.git
+   cd teacherapplication
+   bundle install
 
 * Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  **sqlite3 version**: '3.47.0'
+  rails db:create
+  rails db:migrate
+* Run the Application
+  rails server
